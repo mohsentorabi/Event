@@ -1,0 +1,234 @@
+﻿Build1=Resume_Creator,ir.maatisa.cvcreator,Free
+File1=128.png
+File10=btitrb.ttf
+File11=btraffic.ttf
+File12=btrafficb.ttf
+File13=bvahidb.ttf
+File14=byekan.ttf
+File15=calibril.ttf
+File16=casablanca_light.ttf
+File17=chk.png
+File18=dig_arabia_xl.ttf
+File19=domrol.ttf
+File2=64.png
+File20=export.png
+File21=f.png
+File22=help.png
+File23=layAbout.bal
+File24=layAll.bal
+File25=layFont.bal
+File26=layHelp.bal
+File27=layInfo.bal
+File28=laylstJ.bal
+File29=laylstLe.bal
+File3=add.png
+File30=laylstSCH.bal
+File31=layPic.bal
+File32=layStart.bal
+File33=layTab.bal
+File34=m.png
+File35=maatisa.png
+File36=matin.ttf
+File37=mmitra_b.ttf
+File38=naskh_titr.ttf
+File39=naskhi.ttf
+File4=addpic.png
+File40=privacy.txt
+File41=selham.ttf
+File42=smehrb.ttf
+File5=bfarnaz.ttf
+File6=bnazanin.ttf
+File7=bnazaninb.ttf
+File8=broya.ttf
+File9=broyab.ttf
+FileGroup1=Default Group
+FileGroup10=Default Group
+FileGroup11=Default Group
+FileGroup12=Default Group
+FileGroup13=Default Group
+FileGroup14=Default Group
+FileGroup15=Default Group
+FileGroup16=Default Group
+FileGroup17=Default Group
+FileGroup18=Default Group
+FileGroup19=Default Group
+FileGroup2=Default Group
+FileGroup20=Default Group
+FileGroup21=Default Group
+FileGroup22=Default Group
+FileGroup23=Default Group
+FileGroup24=Default Group
+FileGroup25=Default Group
+FileGroup26=Default Group
+FileGroup27=Default Group
+FileGroup28=Default Group
+FileGroup29=Default Group
+FileGroup3=Default Group
+FileGroup30=Default Group
+FileGroup31=Default Group
+FileGroup32=Default Group
+FileGroup33=Default Group
+FileGroup34=Default Group
+FileGroup35=Default Group
+FileGroup36=Default Group
+FileGroup37=Default Group
+FileGroup38=Default Group
+FileGroup39=Default Group
+FileGroup4=Default Group
+FileGroup40=Default Group
+FileGroup41=Default Group
+FileGroup42=Default Group
+FileGroup5=Default Group
+FileGroup6=Default Group
+FileGroup7=Default Group
+FileGroup8=Default Group
+FileGroup9=Default Group
+Group=Default Group
+Library1=core
+Library10=richstring
+Library2=stringutils
+Library3=reflection
+Library4=phone
+Library5=floatingactionbutton
+Library6=json
+Library7=okhttputils2
+Library8=runtimepermissions
+Library9=tapsellsdk
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.DarkTheme)~\n~'SetApplicationAttribute(android:theme,"@android:style/Theme.Holo.Light")~\n~~\n~' Activate 4 TAPSELL~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.ACCESS_NETWORK_STATE)~\n~~\n~AddApplicationText(~\n~    <activity~\n~        android:name="ir.tapsell.sdk.TapsellAdActivity"~\n~        android:configChanges="keyboardHidden|orientation|screenSize"/>~\n~    )~\n~	~\n~'SetApplicationAttribute(android:theme,"@android:style/theme.material.light")~\n~'End of default text.~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~'SetActivityAttribute(AllTab, android:screenOrientation, "portrait")
+Module1=About
+Module10=Starter
+Module2=All
+Module3=AllTab
+Module4=DrawResume
+Module5=Font
+Module6=fx
+Module7=Help
+Module8=Pic
+Module9=privacy
+NumberOfFiles=42
+NumberOfLibraries=10
+NumberOfModules=10
+Version=10
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: رزومه ساز ماتیسا	
+	#VersionCode: 8
+	#VersionName: 2.08
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: True
+#End Region
+'#AdditionalRes: ..\Resource
+'#AdditionalRes: ..\Resources
+#BridgeLogger: true
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: False
+	#AdditionalJar : tapsellsdk-b4a-4.0.4.jar
+    #AdditionalJar : gson-2.8.5.jar
+#End Region
+
+Sub Process_Globals
+
+End Sub
+
+Sub Globals
+	Private tapsell As Tapsell
+'	Private ad As String
+	Private adPanel As Panel
+	
+	Private btnEnter As Button
+	Private imgLogo As ImageView
+	Private btnHelp As Button
+	Private btnAbout As Button
+	Dim keycheck As Int = 0
+	Dim rp As RuntimePermissions
+	Private lblTitr As Label
+	Private lblPrivacy As Label
+	Private chkPrivacy As CheckBox
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Activity.LoadLayout("layStart")	
+	
+	tapsell.initialize("blpfmnkepopeetbjsntnqtknqpklodoojmiaqdeldniorbclodarsmlabfteookrprbece")
+'	tapsell.requestAd("5f60b75cb081620001cc87ca", True) 'ani banner
+	
+	adPanel.Initialize("adPanel")
+	Activity.AddView(adPanel, 0, 85%y, 100%x, 15%y)
+	tapsell.fillBannerAd(adPanel, "5f60b836378a07000116b589", tapsell.BANNER_320x50)
+	
+	imgLogo.Bitmap = LoadBitmap(File.DirAssets,"128.png")
+	lblTitr.Text = fx.PerNumber( "رزومه ساز ماتیسا ورژن " & Application.VersionName )
+	
+	fx.FS =  (Activity.Width / (Density * 160))
+	
+	lblTitr.TextSize = fx.scaletextSize(16)
+	btnEnter.TextSize = fx.scaletextSize(15)
+	btnHelp.TextSize = fx.scaletextSize(15)
+	btnAbout.TextSize = fx.scaletextSize(15)
+
+	
+	rp.CheckAndRequest(rp.PERMISSION_WRITE_EXTERNAL_STORAGE )
+End Sub
+
+Sub Activity_PermissionResult (Permission As String, Result As Boolean)
+	If Permission = rp.PERMISSION_WRITE_EXTERNAL_STORAGE And Result = False Then
+		MsgboxAsync("اگر دسترسی را اجازه ندهید، شما قادر به مشاهده و ذخیره فایل رزومه نخواهید بود" , "خطا")
+	End If
+End Sub
+
+Sub Activity_Resume
+	keycheck = 0
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		If keycheck = 0 Then
+			keycheck = 1
+			ToastMessageShow("برای خروج یکبار دیگر دکمه برگشت را بزنید",False)
+		Else If keycheck = 1 Then
+			ExitApplication
+		End If
+	End If
+	Return True
+	'If KeyCode = KeyCodes.KEYCODE_BACK Then
+		'ExitApplication
+	'End If
+	'Return(True)
+End Sub
+
+Sub btnEnter_Click
+'	tapsell.showAd(ad, False, False, tapsell.ROTATION_LOCKED_PORTRAIT , True)
+	If chkPrivacy.Checked Then
+		StartActivity(AllTab)
+	Else
+		MsgboxAsync("باید متن سیاست حفظ حریم خصوصی کاربران را مطالعه و تایید کنید" , "")
+	End If
+End Sub
+
+Sub btnAbout_Click
+	StartActivity(About)
+End Sub
+
+Sub btnHelp_Click
+	StartActivity(Help)
+End Sub
+
+Sub tapsell_onadavailable (zoneId As String, adId As String)
+'	ad = adId
+End Sub
+
+Sub Tapsell_onExpiring (zoneId As String, adId As String)
+'	ad = Null
+'	tapsell.requestAd("5f60b75cb081620001cc87ca", True)
+End Sub
+
+Sub lblPrivacy_Click
+	StartActivity(privacy)
+End Sub
